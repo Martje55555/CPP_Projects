@@ -1,11 +1,12 @@
 #include <iostream>
-using namespace std;
-void printStrongNess(string& input) {
+#include <string>
+
+void printStrongness(std::string& input) {
    int n = input.length();
    // Checking lower alphabet in string
    bool hasLower = false, hasUpper = false;
    bool hasDigit = false, specialChar = false;
-   string normalChars = "abcdefghijklmnopqrstu" "vwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ";
+   std::string normalChars = "abcdefghijklmnopqrstu" "vwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ";
    for (int i = 0; i < n; i++) {
       if (islower(input[i]))
          hasLower = true;
@@ -14,24 +15,24 @@ void printStrongNess(string& input) {
       if (isdigit(input[i]))
          hasDigit = true;
       size_t special = input.find_first_not_of(normalChars);
-      if (special != string::npos)
+      if (special != std::string::npos)
          specialChar = true;
    }
    // Strength of password
-   cout << "Strength of password:-";
+   std::cout << "Strength of password:-";
    if (hasLower && hasUpper && hasDigit &&
       specialChar && (n >= 8))
-      cout << "Strong" << endl;
+      std::cout << "Strong" << std::endl;
    else if ((hasLower || hasUpper) &&
       specialChar && (n >= 6))
-      cout << "Moderate" << endl;
+      std::cout << "Moderate" << std::endl;
    else
-      cout << "Weak" << endl;
+      std::cout << "Weak" << std::endl;
 }
 int main() {
-   string input;
-   cout << "Input Password Here: ";
-   cin >> input;
-   printStrongNess(input);
+   std::string input;
+   std::cout << "Input Password Here: ";
+   std::cin >> input;
+   printStrongness(input);
    return 0;
 }

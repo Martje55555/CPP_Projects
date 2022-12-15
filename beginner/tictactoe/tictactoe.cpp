@@ -1,7 +1,6 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-using namespace std;
 
 void drawBoard(char board[][3]);
 char checkWinner3by3(char board[][3]);
@@ -30,7 +29,7 @@ int main()
     bool is_row;
     bool is_column;
 
-    cout<<"************ TIC TAC TOE ************\n";
+    std::cout<<"************ TIC TAC TOE ************\n";
 
     // The game loops again and again until the game is over
     while(winner == ' ')
@@ -44,16 +43,16 @@ int main()
         drawBoard(board);
 				
         // If the game is not yet over show who`s the next player to move
-        cout << "Player ";
+        std::cout << "Player ";
         if(player == 'X')
         {
-            cout << 1;
+            std::cout << 1;
         }
         else
         {
-            cout << 2;
+            std::cout << 2;
         }
-        cout << "'s turn:" << endl;
+        std::cout << "'s turn:" << std::endl;
 
         // Loop until the player selects a valid space for their move
         is_move = false;
@@ -64,15 +63,15 @@ int main()
             is_row = false;
             while(!is_row)
             {
-                cout << "Row: ";
-                cin >> row;
+                std::cout << "Row: ";
+                std::cin >> row;
                 if(row == 1 || row == 2 || row == 3)
                 {
                     is_row = true;
                 }
                 else
                 {
-                    cout << endl << "Invalid row!" << endl;
+                    std::cout << std::endl << "Invalid row!" << std::endl;
                 }
             } // end of input row loop
             
@@ -81,15 +80,15 @@ int main()
             is_column = false;
             while(!is_column)
             {
-                cout << "Column: ";
-                cin >> column;
+                std::cout << "Column: ";
+                std::cin >> column;
                 if(column == 1 || column == 2 || column == 3)
                 {
                     is_column = true;
                 }
                 else
                 {
-                    cout << endl << "Invalid column!" << endl;
+                    std::cout << std::endl << "Invalid column!" << std::endl;
                 }
             } // end of input column loop
 			
@@ -114,13 +113,13 @@ int main()
             // If the space is occupied
             else
             {
-                cout<<"The selected space is occupied!" << endl;
-                cout << "Select a different space:" << endl << endl;
+                std::cout<<"The selected space is occupied!" << std::endl;
+                std::cout << "Select a different space:" << std::endl << std::endl;
                 drawBoard(board);
             }
         } // end of player's move loop
         
-        cout << endl; // for nice output formatting
+        std::cout << std::endl; // for nice output formatting
         
         //check if the player won.
         winner = checkWinner3by3(board);
@@ -131,27 +130,27 @@ int main()
             drawBoard(board);
             
             //Display congratulations message
-            cout<<"Congratulations! Player ";
+            std::cout<<"Congratulations! Player ";
             if(winner == 'X')
             {
-                cout << 1;
+                std::cout << 1;
             }
             else
             {
-                cout << 2;
+                std::cout << 2;
             }
-            cout<<" is the winner!"<<endl;
+            std::cout<<" is the winner!"<<std::endl;
         }
         else if(winner == 'T')
         {
             drawBoard(board);
             
             //Display a message if it`s tie
-            cout << "It's a tie!" << endl;
+            std::cout << "It's a tie!" << std::endl;
         }
         
     } // End of player's turn loop
-	cout << endl;
+	std::cout << std::endl;
     system("pause");
     return 0;
 }
@@ -166,20 +165,20 @@ void drawBoard(char board[][3]) {
 	int j;
 
 	//Draw the top line of the board
-	cout << setw(5) << "1" << setw(4) << "2" << setw(4) << "3";
-	string row = "  +---+---+---+";
+	std::cout << std::setw(5) << "1" << std::setw(4) << "2" << std::setw(4) << "3";
+	std::string row = "  +---+---+---+";
     //Draw the rows of the board and the lines under the rows(MUST use a loop)
-	cout << endl;
-	cout << row << endl;
+	std::cout << std::endl;
+	std::cout << row << std::endl;
 
 	for (j = 0; j <= 2; j++) {
-		cout << j + 1 << " |";
+		std::cout << j + 1 << " |";
 		for (i = 0; i <= 2; i++)
 		{
-		cout << " " << board[j][i] << " |";
+		std::cout << " " << board[j][i] << " |";
 		}
-		cout << endl;
-		cout << row  << endl;
+		std::cout << std::endl;
+		std::cout << row  << std::endl;
 	}
 }
 

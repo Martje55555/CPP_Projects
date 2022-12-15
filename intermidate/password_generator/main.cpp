@@ -1,16 +1,19 @@
 #include <iostream>
-#include<cstdlib>
-#include<ctime>
-using namespace std;
+#include <cstdlib>
+#include <ctime>
+
 const char alphanum[] = "0123456789!@#$%^&*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-int string_length = sizeof(alphanum)-1;
+int length = sizeof(alphanum)-1;
+
 int main() {
     int n;
-    cout<<"Enter the length of password:";
-    cin>>n;
-    srand(time(0));
-    cout<<"Generated password:";
-    for(int i = 0; i < n; i++)
-    cout << alphanum[rand() % string_length];
+    std::cout << "Enter the length of password: ";
+    std::cin >> n;
+    srand(time(NULL));
+    std::cout<<"Generated password: ";
+    for(int i = 0; i < n; i++) {
+        std::cout << alphanum[rand() % length];
+    }
+    std::cout << "\n";
     return 0;
 }

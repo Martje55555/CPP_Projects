@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-using namespace std;
 
 // Define the default capacity of a queue
 #define SIZE 1000
@@ -43,12 +42,12 @@ Queue::~Queue() {
 int Queue::dequeue() {
     // check for queue underflow
     if (isEmpty()) {
-        cout << "Underflow\nProgram Terminated\n";
+        std::cout << "Underflow\nProgram Terminated\n";
         exit(EXIT_FAILURE);
     }
 
     int x = arr[front];
-    cout << "Removing " << x << endl;
+    std::cout << "Removing " << x << std::endl;
 
     front = (front + 1) % capacity;
     count--;
@@ -60,11 +59,11 @@ int Queue::dequeue() {
 void Queue::enqueue(int item) {
     // check for queue overflow
     if (isFull()) {
-        cout << "Overflow\nProgram Terminated\n";
+        std::cout << "Overflow\nProgram Terminated\n";
         exit(EXIT_FAILURE);
     }
 
-    cout << "Inserting " << item << endl;
+    std::cout << "Inserting " << item << std::endl;
 
     rear = (rear + 1) % capacity;
     arr[rear] = item;
@@ -74,7 +73,7 @@ void Queue::enqueue(int item) {
 // Utility function to return the front element of the queue
 int Queue::peek() {
     if (isEmpty()) {
-        cout << "Underflow\nProgram Terminated\n";
+        std::cout << "Underflow\nProgram Terminated\n";
         exit(EXIT_FAILURE);
     }
     return arr[front];
@@ -103,22 +102,22 @@ int main() {
     q.enqueue(2);
     q.enqueue(3);
 
-    cout << "The front element is " << q.peek() << endl;
+    std::cout << "The front element is " << q.peek() << std::endl;
     q.dequeue();
 
     q.enqueue(4);
 
-    cout << "The queue size is " << q.size() << endl;
+    std::cout << "The queue size is " << q.size() << std::endl;
 
     q.dequeue();
     q.dequeue();
     q.dequeue();
 
     if (q.isEmpty()) {
-        cout << "The queue is empty\n";
+        std::cout << "The queue is empty\n";
     }
     else {
-        cout << "The queue is not empty\n";
+        std::cout << "The queue is not empty\n";
     }
 
     return 0;

@@ -134,11 +134,10 @@ void moveSnake() {
   grid[y][x] = 0; // Snake tail
   updatePosition();
 
-  if (snakeY == 30 || snakeY == 0) {
+  if (snakeY == 30 || snakeY == 0)
     gameOver = true;
-  } else if (snakeX == 30 || snakeX == 0) {
+  else if (snakeX == 30 || snakeX == 0)
     gameOver = true;
-  }
 
   if (grid[snakeY][snakeX] == -1) { // If it's food
     snakeBody.emplace(snakeX, snakeY);

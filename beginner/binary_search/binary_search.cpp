@@ -2,10 +2,8 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 // A recursive binary search function. It returns
-// location of x in given array arr[l..r] is present,
+// location of x in given array[l...r] is present,
 // otherwise -1
 int recursiveBinarySearch(int arr[], int l, int r, int x)
 {
@@ -27,37 +25,35 @@ int recursiveBinarySearch(int arr[], int l, int r, int x)
 		return recursiveBinarySearch(arr, mid + 1, r, x);
 	}
 
-	// We reach here when element is not
-	// present in array
+	// target is not present in the array
 	return -1;
 }
 
-
-int binarySearch(vector<int> v, int To_Find)
+int binarySearch(std::vector<int> v, int To_Find)
 {
-	int lo = 0, hi = v.size() - 1;
+	int l = 0, r = v.size() - 1;
 	int mid;
 	// This below check covers all cases , so need to check
 	// for mid=lo-(hi-lo)/2
-	while (hi - lo > 1) {
-		int mid = (hi + lo) / 2;
+	while (r - l > 1) {
+		int mid = (r + l) / 2;
 		if (v[mid] < To_Find) {
-			lo = mid + 1;
+			l = mid + 1;
 		}
 		else {
-			hi = mid;
+			r = mid;
 		}
 	}
-	if (v[lo] == To_Find) {
-		cout << "Found"
-			<< " At Index " << lo << endl;
+	if (v[l] == To_Find) {
+		std::cout << "Found"
+			<< " At Index " << l << std::endl;
 	}
-	else if (v[hi] == To_Find) {
-		cout << "Found"
-			<< " At Index " << hi << endl;
+	else if (v[r] == To_Find) {
+		std::cout << "Found"
+			<< " At Index " << r << std::endl;
 	}
 	else {
-		cout << "Not Found" << endl;
+		std::cout << "Not Found" << std::endl;
 	}
     return -1;
 }
@@ -69,12 +65,10 @@ int main(void)
 	int n = sizeof(arr) / sizeof(arr[0]);
 	int result = recursiveBinarySearch(arr, 0, n - 1, x);
 	(result == -1)
-		? cout << "Element is not present in array"
-		: cout << "Element is present at index " << result;
+		? std::cout << "Element is not present in array\n"
+		: std::cout << "Element is present at index " << result << std::endl;
 
-    cout << "\n";
-
-    vector<int> v = { 1, 3, 4, 5, 6 };
+    std::vector<int> v = { 1, 3, 4, 5, 6 };
 	int To_Find = 1;
 	binarySearch(v, To_Find);
 	To_Find = 6;

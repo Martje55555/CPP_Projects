@@ -1,10 +1,6 @@
 #include<iostream>
 #include<time.h>
 
-int randNumGen(int upper, int lower);
-
-using namespace std;
-
 //Prototype
 int randNumGen(int upper, int lower);
 
@@ -23,7 +19,7 @@ int main() {
 	int numGuesses = 0;
 
 // Seeds the random generator
-	srand(static_cast<int> (time(NULL)));
+	srand(static_cast<int>(time(NULL)));
 // Calls function randNumGen() to generate a random number between 1 and 100 and
 // assign the value returned to number
 	number = randNumGen(100, 1);
@@ -35,32 +31,30 @@ int main() {
 // her/him the correct number
 	correct = false;
 	while (correct, numGuesses < 5) {
-		cout << "Guess the number the computer randomly picked between 1 - 100: ";
-		cin >> guess;
+		std::cout << "Guess the number the computer randomly picked between 1 - 100: ";
+		std::cin >> guess;
 		//cout << endl;
 		//correct = true;
 		if (guess == number) {
 			numGuesses = 5;
-			cout << "You guessed right, you win?" << endl << endl;
+			std::cout << "You guessed right, you win!" << std::endl << std::endl;
 			
 			correct = true;
 			continue;
 		}
 		else if (guess > number) {
-			cout << "Sorry, your guess is too high" << endl << endl;
+			std::cout << "Sorry, your guess is too high" << std::endl << std::endl;
 		}
 		else if (guess < number) {
-			cout << "Sorry, your guess is too low" << endl << endl;
+			std::cout << "Sorry, your guess is too low" << std::endl << std::endl;
 			
 		}
 		if (numGuesses == 4) {
-			cout << "Sorry you lost. The number is: " << number << endl;
+			std::cout << "Sorry you lost. The number is: " << number << std::endl;
 			correct = true;
 		}
-		
 		++numGuesses;
 	}
-
 
 	system("pause");
     return 0;

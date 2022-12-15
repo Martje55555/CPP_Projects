@@ -22,9 +22,9 @@ int dieroll(void) {
 }
 
 //The following adds the 1st and 2nd roll together
-int dice(int fdie, int sdie) {
-    std::cout << "Your total so far is: " << sdie + fdie << std::endl;
-    return sdie + fdie;
+int dice(int firstDie, int secondDie) {
+    std::cout << "Your total so far is: " << secondDie + firstDie << std::endl;
+    return secondDie + firstDie;
 }
 
 // Checks if player won / lost / can keep rolling.

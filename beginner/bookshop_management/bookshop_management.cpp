@@ -4,10 +4,10 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-using namespace std;
+#include <string>
 
 // Bookshop Class
-class bookshope {
+class Bookshop {
 public:
 	void control_panel();
 	void add_book();
@@ -18,39 +18,45 @@ public:
 };
 
 // Function to display the menus
-void bookshope::control_panel()
+void Bookshop::control_panel()
 {
 	system("cls");
-	cout << "\n\n\t\t\t\tCONTROL PANEL";
-	cout << "\n\n1. ADD BOOK";
-	cout << "\n2. DISPLAY BOOKS";
-	cout << "\n3. CHECK PARTICULAR BOOK";
-	cout << "\n4. UPDATE BOOK";
-	cout << "\n5. DELETE BOOK";
-	cout << "\n6. EXIT";
+	std::cout << "\n\n\t\t\t\tCONTROL PANEL";
+	std::cout << "\n\n1. ADD BOOK";
+	std::cout << "\n2. DISPLAY BOOKS";
+	std::cout << "\n3. CHECK PARTICULAR BOOK";
+	std::cout << "\n4. UPDATE BOOK";
+	std::cout << "\n5. DELETE BOOK";
+	std::cout << "\n6. EXIT";
 }
 
 // Function to add book
-void bookshope::add_book()
+void Bookshop::add_book()
 {
 	system("cls");
-	fstream file;
+	std::fstream file;
 	int no_copy;
-	string b_name, a_name, b_id;
-	cout << "\n\n\t\t\t\tADD BOOKS";
-	cout << "\n\nBook ID : ";
-	cin >> b_id;
-	cout << "\nBook Name : ";
-	cin >> b_name;
-	cout << "\nAuthor Name : ";
-	cin >> a_name;
-	cout << "\nNo. of Books : ";
-	cin >> no_copy;
+	std::string b_name, a_name, b_id;
+	std::cout << "\n\n\t\t\t\tADD BOOKS";
+	std::cout << "\n\nBook ID : ";
+	std::cin >> b_id;
+	std::cout << "\nBook Name : ";
+	std::cin >> b_name;
+	std::cout << "\nAuthor Name : ";
+	std::cin >> a_name;
+	std::cout << "\nNo. of Books : ";
+	std::cin >> no_copy;
+	while (!std::cin) {
+		std::cout << "\nNo. of Books (integer only!)";
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cin >> no_copy;
+	}
 
 	// Open file in append or
 	// output mode
 	file.open("D:// book.txt",
-			ios::out | ios::app);
+			std::ios::out | std::ios::app);
 	file << " " << b_id << " "
 		<< b_name << " " << a_name
 		<< " " << no_copy << "\n";
@@ -58,21 +64,21 @@ void bookshope::add_book()
 }
 
 // Function to display book
-void bookshope::show_book()
+void Bookshop::show_book()
 {
 	system("cls");
-	fstream file;
+	std::fstream file;
 	int no_copy;
-	string b_name, b_id, a_name;
-	cout << "\n\n\t\t\t\t\tAll BOOKS";
+	std::string b_name, b_id, a_name;
+	std::cout << "\n\n\t\t\t\t\tAll BOOKS";
 
 	// Open the file in input mode
-	file.open("D:// book.txt", ios::in);
+	file.open("D:// book.txt", std::ios::in);
 	if (!file)
-		cout << "\n\nFile Opening Error!";
+		std::cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nBook ID\t\tBook"
+		std::cout << "\n\n\nBook ID\t\tBook"
 			<< "\t\tAuthor\t\tNo. of "
 				"Books\n\n";
 		file >> b_id >> b_name;
@@ -81,7 +87,7 @@ void bookshope::show_book()
 		// Till end of file is reached
 		while (!file.eof()) {
 
-			cout << " " << b_id
+			std::cout << " " << b_id
 				<< "\t\t" << b_name
 				<< "\t\t" << a_name
 				<< "\t\t" << no_copy
@@ -98,78 +104,75 @@ void bookshope::show_book()
 }
 
 // Function to check the book
-void bookshope::check_book()
+void Bookshop::check_book()
 {
 	system("cls");
-	fstream file;
+	std::fstream file;
 	int no_copy, count = 0;
-	string b_id, b_name, a_name, b_idd;
+	std::string b_id, b_name, a_name, targetId;
 
-	cout << "\n\n\t\t\t\tCheck "
+	std::cout << "\n\n\t\t\t\tCheck "
 		<< "Particular Book";
 
 	// Open the file in input mode
-	file.open("D:// book.txt", ios::in);
+	file.open("D:// book.txt", std::ios::in);
 	if (!file)
-		cout << "\n\nFile Opening Error!";
+		std::cout << "\n\nFile Opening Error!";
 	else {
-
-		cout << "\n\nBook ID : ";
-		cin >> b_idd;
+		std::cout << "\n\nBook ID : ";
+		std::cin >> targetId;
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
 
 		while (!file.eof()) {
 
-			if (b_idd == b_id) {
-
+			if (targetId == b_id) {
 				system("cls");
-				cout << "\n\n\t\t\t\t"
+				std::cout << "\n\n\t\t\t\t"
 					<< "Check Particular Book";
-				cout << "\n\nBook ID : "
+				std::cout << "\n\nBook ID : "
 					<< b_id;
-				cout << "\nName : "
+				std::cout << "\nName : "
 					<< b_name;
-				cout << "\nAuthor : "
+				std::cout << "\nAuthor : "
 					<< a_name;
-				cout << "\nNo. of Books : "
+				std::cout << "\nNo. of Books : "
 					<< no_copy;
-				cout << endl
-					<< endl;
+				std::cout << std::endl
+					<< std::endl;
 				count++;
 				break;
 			}
 			file >> b_id >> b_name;
 			file >> a_name >> no_copy;
 		}
+		if (count == 0)
+			std::cout << "\n\nBook ID Not" << " Found...\n";
 		system("pause");
 		file.close();
-		if (count == 0)
-			cout << "\n\nBook ID Not"
-				<< " Found...";
 	}
 }
 
 // Function to update the book
-void bookshope::update_book()
+void Bookshop::update_book()
 {
 	system("cls");
-	fstream file, file1;
+	std::fstream file, file1;
 	int no_copy, no_co, count = 0;
-	string b_name, b_na, a_name;
-	string a_na, b_idd, b_id;
+	std::string b_name, b_na, a_name;
+	std::string a_na, b_idd, b_id;
 
-	cout << "\n\n\t\t\t\tUpdate Book Record";
+	std::cout << "\n\n\t\t\t\tUpdate Book Record";
 	file1.open("D:// book1.txt",
-			ios::app | ios::out);
-	file.open("D:// book.txt", ios::in);
+			std::ios::app | std::ios::out);
+	file.open("D:// book.txt", std::ios::in);
 
 	if (!file)
-		cout << "\n\nFile Opening Error!";
+		std::cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\nBook ID : ";
-		cin >> b_id;
+		std::cout << "\n\nBook ID : ";
+		std::cin >> b_id;
 		file >> b_idd >> b_name;
 		file >> a_name >> no_copy;
 
@@ -177,14 +180,14 @@ void bookshope::update_book()
 		while (!file.eof()) {
 			if (b_id == b_idd) {
 				system("cls");
-				cout << "\t\t\t\t"
+				std::cout << "\t\t\t\t"
 					<< "Update Book Record";
-				cout << "\n\nNew Book Name : ";
-				cin >> b_na;
-				cout << "\nAuthor Name : ";
-				cin >> a_na;
-				cout << "\nNo. of Books : ";
-				cin >> no_co;
+				std::cout << "\n\nNew Book Name : ";
+				std::cin >> b_na;
+				std::cout << "\nAuthor Name : ";
+				std::cin >> a_na;
+				std::cout << "\nNo. of Books : ";
+				std::cin >> no_co;
 				file1 << " " << b_id << " "
 					<< b_na << " "
 					<< a_na << " " << no_co
@@ -201,10 +204,10 @@ void bookshope::update_book()
 			file >> a_name >> no_copy;
 		}
 		if (count == 0)
-			cout << "\n\nBook ID"
+			std::cout << "\n\nBook ID"
 				<< " Not Found...";
 	}
-	cout << endl;
+	std::cout << std::endl;
 	system("pause");
 
 	// Close the files
@@ -216,26 +219,26 @@ void bookshope::update_book()
 }
 
 // Function to delete book
-void bookshope::del_book()
+void Bookshop::del_book()
 {
 	system("cls");
-	fstream file, file1;
+	std::fstream file, file1;
 	int no_copy, count = 0;
-	string b_id, b_idd, b_name, a_name;
-	cout << "\n\n\t\t\t\tDelete a Book";
+	std::string b_id, b_idd, b_name, a_name;
+	std::cout << "\n\n\t\t\t\tDelete a Book";
 
 	// Append file in output mode
 	file1.open("D:// book1.txt",
-			ios::app | ios::out);
+			std::ios::app | std::ios::out);
 	file.open("D:// book.txt",
-			ios::in);
+			std::ios::in);
 
 	if (!file)
-		cout << "\n\nFile Opening Error...";
+		std::cout << "\n\nFile Opening Error...";
 	else {
 
-		cout << "\n\nBook ID : ";
-		cin >> b_id;
+		std::cout << "\n\nBook ID : ";
+		std::cin >> b_id;
 		file >> b_idd >> b_name;
 		file >> a_name >> no_copy;
 		while (!file.eof()) {
@@ -243,9 +246,9 @@ void bookshope::del_book()
 			if (b_id == b_idd) {
 
 				system("cls");
-				cout << "\n\n\t\t\t\t"
+				std::cout << "\n\n\t\t\t\t"
 					<< "Delete a Book";
-				cout << "\n\nBook is Deleted "
+				std::cout << "\n\nBook is Deleted "
 						"Successfully...\n\n";
 				count++;
 			}
@@ -259,8 +262,8 @@ void bookshope::del_book()
 			file >> a_name >> no_copy;
 		}
 		if (count == 0)
-			cout << "\n\nBook ID "
-				<< "Not Found...";
+			std::cout << "\n\nBook ID "
+				<< "Not Found...\n";
 	}
 	system("pause");
 
@@ -277,23 +280,23 @@ void bookShopRecord()
 {
 	int choice;
 	char x;
-	bookshope b;
+	Bookshop b;
 
 	while (1) {
 
 		b.control_panel();
-		cout << "\n\nEnter your choice : ";
-		cin >> choice;
+		std::cout << "\n\nEnter your choice : ";
+		std::cin >> choice;
 		switch (choice) {
 
 		case 1:
 			do {
 
 				b.add_book();
-				cout << "\n\nWant to add"
+				std::cout << "\n\nWant to add"
 					<< " another book? "
 						"(y/n) : ";
-				cin >> x;
+				std::cin >> x;
 			} while (x == 'y');
 			break;
 
@@ -317,7 +320,7 @@ void bookShopRecord()
 			break;
 
 		default:
-			cout << "\n\nINVALID CHOICE\n";
+			std::cout << "\n\nINVALID CHOICE\n";
 		}
 	}
 }
@@ -327,6 +330,5 @@ int main()
 {
 	// Function Call
 	bookShopRecord();
-
 	return 0;
 }
