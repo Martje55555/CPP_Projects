@@ -1,4 +1,5 @@
-#include<iostream.h>
+
+#include<iostream>
 #include<dos.h>
 #include<conio.h>
 #include<stdlib.h>
@@ -258,4 +259,4 @@ void check_keys(int x,int y)
   cprintf("%d",a);
   if(x>=69 && y>=4 && x<=74 && y<=4) exitcode=0;
 }
-
+//****************************END OF PIANO***********************************************//

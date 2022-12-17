@@ -33,8 +33,7 @@ int main() {
 	while (correct, numGuesses < 5) {
 		std::cout << "Guess the number the computer randomly picked between 1 - 100: ";
 		std::cin >> guess;
-		//cout << endl;
-		//correct = true;
+
 		if (guess == number) {
 			numGuesses = 5;
 			std::cout << "You guessed right, you win!" << std::endl << std::endl;

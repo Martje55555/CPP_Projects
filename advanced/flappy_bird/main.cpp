@@ -12,9 +12,6 @@
 #define MENU_WIDTH 20
 #define GAP_SIZE 7
 #define PIPE_DIF 45
-
-using namespace std;
-//		cout<<"±±±±±±±±±";
  
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD CursorPosition;
@@ -48,16 +45,21 @@ void setcursor(bool visible, DWORD size)
 void drawBorder(){ 
 	
 	for(int i=0; i<SCREEN_WIDTH; i++){
-		gotoxy(i,0); cout<<"±";
-		gotoxy(i,SCREEN_HEIGHT); cout<<"±";
+		gotoxy(i,0);
+		std::cout << "±";
+		gotoxy(i,SCREEN_HEIGHT);
+		std::cout << "±";
 	}
 	
 	for(int i=0; i<SCREEN_HEIGHT; i++){
-		gotoxy(0,i); cout<<"±";
-		gotoxy(SCREEN_WIDTH,i); cout<<"±";
+		gotoxy(0,i);
+		std::cout << "±";
+		gotoxy(SCREEN_WIDTH,i);
+		std::cout << "±";
 	}
 	for(int i=0; i<SCREEN_HEIGHT; i++){
-		gotoxy(WIN_WIDTH,i); cout<<"±";
+		gotoxy(WIN_WIDTH,i);
+		std::cout << "±";
 	}
 }
 void genPipe(int ind){
@@ -66,20 +68,24 @@ void genPipe(int ind){
 void drawPipe(int ind){
 	if( pipeFlag[ind] == true ){
 		for(int i=0; i<gapPos[ind]; i++){ 
-			gotoxy(WIN_WIDTH-pipePos[ind],i+1); cout<<"***"; 
+			gotoxy(WIN_WIDTH-pipePos[ind],i+1);
+			std::cout << "***"; 
 		}
 		for(int i=gapPos[ind]+GAP_SIZE; i<SCREEN_HEIGHT-1; i++){ 
-			gotoxy(WIN_WIDTH-pipePos[ind],i+1); cout<<"***"; 
+			gotoxy(WIN_WIDTH-pipePos[ind],i+1);
+			std::cout << "***"; 
 		}
 	} 
 }
 void erasePipe(int ind){
 	if( pipeFlag[ind] == true ){
 		for(int i=0; i<gapPos[ind]; i++){ 
-			gotoxy(WIN_WIDTH-pipePos[ind],i+1); cout<<"   "; 
+			gotoxy(WIN_WIDTH-pipePos[ind],i+1);
+			std::cout << "   "; 
 		}
 		for(int i=gapPos[ind]+GAP_SIZE; i<SCREEN_HEIGHT-1; i++){ 
-			gotoxy(WIN_WIDTH-pipePos[ind],i+1); cout<<"   "; 
+			gotoxy(WIN_WIDTH-pipePos[ind],i+1);
+			std::cout << "   "; 
 		}
 	}
 }
@@ -87,14 +93,16 @@ void erasePipe(int ind){
 void drawBird(){
 	for(int i=0; i<2; i++){
 		for(int j=0; j<6; j++){
-			gotoxy(j+2,i+birdPos); cout<<bird[i][j];
+			gotoxy(j+2,i+birdPos);
+			std::cout << bird[i][j];
 		}
 	}
 }
 void eraseBird(){
 	for(int i=0; i<2; i++){
 		for(int j=0; j<6; j++){
-			gotoxy(j+2,i+birdPos); cout<<" ";
+			gotoxy(j+2,i+birdPos);
+			std::cout << " ";
 		}
 	}
 }
@@ -102,42 +110,37 @@ void eraseBird(){
 int collision(){
 	if( pipePos[0] >= 61  ){
 		if( birdPos<gapPos[0] || birdPos >gapPos[0]+GAP_SIZE ){
-//			cout<< " HIT ";
-//			getch();
 			return 1;
 		}
 	}
 	return 0;
 }
-void debug(){
-//	gotoxy(SCREEN_WIDTH + 3, 4); cout<<"Pipe Pos: "<<pipePos[0];
-	
-}
+
 void gameover(){
 	system("cls");
-	cout<<endl;
-	cout<<"\t\t--------------------------"<<endl;
-	cout<<"\t\t-------- Game Over -------"<<endl;
-	cout<<"\t\t--------------------------"<<endl<<endl;
-	cout<<"\t\tPress any key to go back to menu.";
+	std::cout << std::endl;
+	std::cout << "\t\t--------------------------" << std::endl;
+	std::cout << "\t\t-------- Game Over -------" << std::endl;
+	std::cout << "\t\t--------------------------" << std::endl << std::endl;
+	std::cout << "\t\tPress any key to go back to menu.";
 	getch();
 }
 void updateScore(){
-	gotoxy(WIN_WIDTH + 7, 5);cout<<"Score: "<<score<<endl;
+	gotoxy(WIN_WIDTH + 7, 5);
+	std::cout << "Score: " << score << std::endl;
 }
 
 void instructions(){
 	
 	system("cls");
-	cout<<"Instructions";
-	cout<<"\n----------------";
-	cout<<"\n Press spacebar to make bird fly";
-	cout<<"\n\nPress any key to go back to menu";
+	std::cout << "Instructions";
+	std::cout << "\n----------------";
+	std::cout << "\n Press spacebar to make bird fly";
+	std::cout << "\n\nPress any key to go back to menu";
 	getch();
 }
 
 void play(){
-	
 	birdPos = 6;
 	score = 0;
 	pipeFlag[0] = 1; 
@@ -149,19 +152,26 @@ void play(){
 	genPipe(0);
 	updateScore();
 	
-	gotoxy(WIN_WIDTH + 5, 2);cout<<"FLAPPY BIRD";
-	gotoxy(WIN_WIDTH + 6, 4);cout<<"----------";
-	gotoxy(WIN_WIDTH + 6, 6);cout<<"----------";
-	gotoxy(WIN_WIDTH + 7, 12);cout<<"Control ";
-	gotoxy(WIN_WIDTH + 7, 13);cout<<"-------- ";
-	gotoxy(WIN_WIDTH + 2, 14);cout<<" Spacebar = jump";
+	gotoxy(WIN_WIDTH + 5, 2);
+	std::cout << "FLAPPY BIRD";
+	gotoxy(WIN_WIDTH + 6, 4);
+	std::cout << "----------";
+	gotoxy(WIN_WIDTH + 6, 6);
+	std::cout << "----------";
+	gotoxy(WIN_WIDTH + 7, 12);
+	std::cout << "Control ";
+	gotoxy(WIN_WIDTH + 7, 13);
+	std::cout << "-------- ";
+	gotoxy(WIN_WIDTH + 2, 14);
+	std::cout << " Spacebar = jump";
 	
-	gotoxy(10, 5);cout<<"Press any key to start";
+	gotoxy(10, 5);
+	std::cout << "Press any key to start";
 	getch();
-	gotoxy(10, 5);cout<<"                      ";
+	gotoxy(10, 5);
+	std::cout << "                      ";
 	
 	while(1){
-		 
 		if(kbhit()){
 			char ch = getch();
 			if(ch==32){
@@ -176,7 +186,6 @@ void play(){
 		drawBird();
 		drawPipe(0);
 		drawPipe(1);
-		debug();
 		if( collision() == 1 ){
 			gameover();
 			return;
@@ -220,22 +229,25 @@ int main()
 	setcursor(0,0); 
 	srand( (unsigned)time(NULL)); 
 	
-//	play();
-	
 	do{
 		system("cls");
-		gotoxy(10,5); cout<<" -------------------------- "; 
-		gotoxy(10,6); cout<<" |      Flappy Bird       | "; 
-		gotoxy(10,7); cout<<" --------------------------";
-		gotoxy(10,9); cout<<"1. Start Game";
-		gotoxy(10,10); cout<<"2. Instructions";	 
-		gotoxy(10,11); cout<<"3. Quit";
-		gotoxy(10,13); cout<<"Select option: ";
+		gotoxy(10,5); std::cout << " -------------------------- "; 
+		gotoxy(10,6); std::cout << " |      Flappy Bird       | "; 
+		gotoxy(10,7); std::cout << " --------------------------";
+		gotoxy(10,9); std::cout << "1. Start Game";
+		gotoxy(10,10); std::cout << "2. Instructions";	 
+		gotoxy(10,11); std::cout << "3. Quit";
+		gotoxy(10,13); std::cout << "Select option: ";
 		char op = getche();
 		
-		if( op=='1') play();
-		else if( op=='2') instructions();
-		else if( op=='3') exit(0);
+		if( op=='1')
+			play();
+		else if( op=='2')
+			instructions();
+		else if( op=='3') {
+			std::cout << "\n";
+			exit(0);
+		}
 		
 	}while(1);
 	

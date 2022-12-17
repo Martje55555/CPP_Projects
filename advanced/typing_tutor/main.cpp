@@ -7,8 +7,6 @@
 #define SCREEN_WIDTH 90
 #define SCREEN_HEIGHT 26
 #define WIN_WIDTH 70 
-
-using namespace std; 
  
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD CursorPosition;
@@ -33,15 +31,15 @@ void setcursor(bool visible, DWORD size) {
 }
 void drawBorder(){  
 	for(int i=0; i<SCREEN_WIDTH; i++){ 
-		gotoxy(i,SCREEN_HEIGHT); cout<<"±";
+		gotoxy(i,SCREEN_HEIGHT); std::cout<<"±";
 	}
 	
 	for(int i=0; i<SCREEN_HEIGHT; i++){
-		gotoxy(0,i); cout<<"±";
-		gotoxy(SCREEN_WIDTH,i); cout<<"±";
+		gotoxy(0,i); std::cout<<"±";
+		gotoxy(SCREEN_WIDTH,i); std::cout<<"±";
 	}
 	for(int i=0; i<SCREEN_HEIGHT; i++){
-		gotoxy(WIN_WIDTH,i); cout<<"±";
+		gotoxy(WIN_WIDTH,i); std::cout<<"±";
 	}
 }
 
@@ -52,12 +50,12 @@ void genAlphabet(int ind){
 }
 void drawAlphabet(int ind){
 	if( keyPos[ind][0] != 0 ){
-		gotoxy(keyPos[ind][0], keyPos[ind][1]);   cout<<keys[ind];  
+		gotoxy(keyPos[ind][0], keyPos[ind][1]);   std::cout<<keys[ind];  
 	} 
 }
 void eraseAlphabet(int ind){
 	if( keyPos[ind][0] != 0 ){
-		gotoxy(keyPos[ind][0], keyPos[ind][1]);   cout<<" ";  
+		gotoxy(keyPos[ind][0], keyPos[ind][1]);   std::cout<<" ";  
 	}
 }
 void resetAlphabet(int ind){
@@ -67,27 +65,27 @@ void resetAlphabet(int ind){
 
 void gameover(){
 	system("cls");
-	cout<<endl;
-	cout<<"\t\t--------------------------"<<endl;
-	cout<<"\t\t-------- Game Over -------"<<endl;
-	cout<<"\t\t--------------------------"<<endl<<endl;
-	cout<<"\t\tPress any key to go back to menu.";
+	std::cout<<std::endl;
+	std::cout<<"\t\t--------------------------"<<std::endl;
+	std::cout<<"\t\t-------- Game Over -------"<<std::endl;
+	std::cout<<"\t\t--------------------------"<<std::endl<<std::endl;
+	std::cout<<"\t\tPress any key to go back to menu.";
 	getch();
 }
 void updateScore(){
-	gotoxy(WIN_WIDTH + 7, 5);cout<<"Score: "<<score<<endl;
+	gotoxy(WIN_WIDTH + 7, 5);std::cout<<"Score: "<<score<<std::endl;
 }
 
 void instructions(){
 	
 	system("cls");
-	cout<<"Instructions";
-	cout<<"\n----------------";
-	cout<<"\n On Left side you will see falling characters ";
-	cout<<"\n You have to keep them away from touching floor";
-	cout<<"\n Press respective key from keyboard to keep playing";
-	cout<<"\n\n Press 'escape' to exit";
-	cout<<"\n\nPress any key to go back to menu";
+	std::cout<<"Instructions";
+	std::cout<<"\n----------------";
+	std::cout<<"\n On Left side you will see falling characters ";
+	std::cout<<"\n You have to keep them away from touching floor";
+	std::cout<<"\n Press respective key from keyboard to keep playing";
+	std::cout<<"\n\n Press 'escape' to exit";
+	std::cout<<"\n\nPress any key to go back to menu";
 	getch();
 }
 
@@ -104,13 +102,13 @@ void play(){
 	for(int i=0; i<10; i++)
 		genAlphabet(i); 
 	
-	gotoxy(WIN_WIDTH + 5, 2);cout<<"Typing Tutor";
-	gotoxy(WIN_WIDTH + 6, 4);cout<<"----------";
-	gotoxy(WIN_WIDTH + 6, 6);cout<<"----------";
+	gotoxy(WIN_WIDTH + 5, 2);std::cout<<"Typing Tutor";
+	gotoxy(WIN_WIDTH + 6, 4);std::cout<<"----------";
+	gotoxy(WIN_WIDTH + 6, 6);std::cout<<"----------";
 	
-	gotoxy(18, 5);cout<<"Press any key to start";
+	gotoxy(18, 5);std::cout<<"Press any key to start";
 	getch();
-	gotoxy(18, 5);cout<<"                      ";
+	gotoxy(18, 5);std::cout<<"                      ";
 	
 	while(1){
 		if(kbhit()){
@@ -150,13 +148,13 @@ int main()
 	 
 	do{
 		system("cls");
-		gotoxy(10,5); cout<<" -------------------------- "; 
-		gotoxy(10,6); cout<<" |     TYPING  TUTOR      | "; 
-		gotoxy(10,7); cout<<" --------------------------";
-		gotoxy(10,9); cout<<"1. Start Game";
-		gotoxy(10,10); cout<<"2. Instructions";	 
-		gotoxy(10,11); cout<<"3. Quit";
-		gotoxy(10,13); cout<<"Select option: ";
+		gotoxy(10,5); std::cout<<" -------------------------- "; 
+		gotoxy(10,6); std::cout<<" |     TYPING  TUTOR      | "; 
+		gotoxy(10,7); std::cout<<" --------------------------";
+		gotoxy(10,9); std::cout<<"1. Start Game";
+		gotoxy(10,10); std::cout<<"2. Instructions";	 
+		gotoxy(10,11); std::cout<<"3. Quit";
+		gotoxy(10,13); std::cout<<"Select option: ";
 		char op = getche();
 		
 		if( op=='1') play();

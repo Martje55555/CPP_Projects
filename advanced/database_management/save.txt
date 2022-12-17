@@ -1,0 +1,3 @@
+ Name		ID	GPA
+
+john	123	2
