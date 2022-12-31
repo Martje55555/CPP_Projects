@@ -42,6 +42,11 @@
         "vector": "cpp",
         "fstream": "cpp",
         "queue": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "iomanip": "cpp",
+        "set": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "xtree": "cpp"
     }
 }

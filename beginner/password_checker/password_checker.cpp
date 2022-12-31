@@ -1,11 +1,14 @@
+/*********************************************************************
+* Password Checker                                                   *
+*********************************************************************/
 #include <iostream>
 #include <string>
 
 void printStrongness(std::string& input) {
    int n = input.length();
-   // Checking lower alphabet in string
    bool hasLower = false, hasUpper = false;
    bool hasDigit = false, specialChar = false;
+
    std::string normalChars = "abcdefghijklmnopqrstu" "vwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 ";
    for (int i = 0; i < n; i++) {
       if (islower(input[i]))
@@ -18,7 +21,7 @@ void printStrongness(std::string& input) {
       if (special != std::string::npos)
          specialChar = true;
    }
-   // Strength of password
+
    std::cout << "Strength of password:-";
    if (hasLower && hasUpper && hasDigit &&
       specialChar && (n >= 8))

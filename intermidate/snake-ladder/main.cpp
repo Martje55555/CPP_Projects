@@ -1,3 +1,6 @@
+/*********************************************************************
+* Snakes and Ladder                                                  *
+*********************************************************************/
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
@@ -11,39 +14,39 @@ void playDice(int & score);
 int randNumGen(int upper, int lower);
 
 void main() {
-    int player1 = 0, player2 = 0, lastposition;
-    char player1name[80], player2name[80];
+    int player1 = 0, player2 = 0, lastPos;
+    char player1Name[80], player2Name[80];
     system("cls");
     
     drawLine(50, '=');
     std::cout << "\n\n\n\n\t\tSNAKE LADDER GAME\n\n\n\n";
     drawLine(50, '=');
     std::cout << "\n\n\nEnter Name of player 1: ";
-    std::cin >> player1name;
+    std::cin >> player1Name;
     std::cout << "\n\n\nEnter Name of player 2: ";
-    std::cin >> player2name;
-    while (player1 <= 100 && player2 <= 100) 
-	{
+    std::cin >> player2Name;
+    while (player1 <= 100 && player2 <= 100) {
         board();
-        gameScore(player1name, player2name, player1, player2);
-        std::cout << "\n\n--->" << player1name << " Now your Turn >> Press any key to play ";
+        gameScore(player1Name, player2Name, player1, player2);
+        std::cout << "\n\n--->" << player1Name << " Now your Turn >> Press any key to play ";
         getch();
-        lastposition = player1;
+        lastPos = player1;
         playDice(player1);
-        if (player1 < lastposition)
+        if (player1 < lastPos)
             std::cout << "\n\aOops!! Snake found !! You are at postion " << player1 << "\n";
-        else if (player1 > lastposition + 6) {
+        else if (player1 > lastPos + 6) {
             std::cout << "\nGreat!! you got a ladder !! You are at position " << player1;
-            std::cout << "\n\n--->" << player2name << " Now your Turn >> Press any key to play ";
+            std::cout << "\n\n--->" << player2Name << " Now your Turn >> Press any key to play ";
         }
 
+        std::cout << "\n\n--->" << player2Name << " Now your Turn >> Press any key to play ";
         getch();
-        lastposition = player2;
+        lastPos = player2;
         playDice(player2);
 
-        if (player2 < lastposition)
+        if (player2 < lastPos)
             std::cout << "\n\n\aOops!! Snake found !! You are at position " << player2 << "\n";
-        else if (player2 > lastposition + 6)
+        else if (player2 > lastPos + 6)
             std::cout << "\n\nGreat!! you got a ladder !! You are at position " << player2 << "\n";
         getch();
     }
@@ -54,16 +57,17 @@ void main() {
     std::cout << "\n\n\t\tRESULT\n\n";
     drawLine(50, '+');
     std::cout << std::endl;
-    gameScore(player1name, player2name, player1, player2);
+    gameScore(player1Name, player2Name, player1, player2);
     std::cout << "\n\n\n";
 
     if (player1 >= player2)
-        std::cout << player1name << " !! You are the winner of the game\n\n";
+        std::cout << player1Name << " !! You are the winner of the game\n\n";
     else
-        std::cout << player2name << " !! You are the winner of the game\n\n";
+        std::cout << player2Name << " !! You are the winner of the game\n\n";
     drawLine(50, '+');
     getch();
 }
+
 void drawLine(int n, char ch) {
     for (int i = 0; i < n; i++)
         std::cout << ch;
@@ -96,6 +100,7 @@ void gameScore(char name1[], char name2[], int p1, int p2) {
 }
 
 void playDice(int & score) {
+    // seed random number generator
 	srand(static_cast<int>(time(NULL)));
     int dice = randNumGen(6, 1);
     std::cout << "\nYou got " << dice << " Point !! ";

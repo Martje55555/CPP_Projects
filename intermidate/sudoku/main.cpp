@@ -1,3 +1,6 @@
+/*********************************************************************
+* Sudoku Solver                                                      *
+*********************************************************************/
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -9,16 +12,13 @@
 bool isGridSafe(int grid[N][N], int row, int col, int num);
 bool isEmptyLocation(int grid[N][N], int &row, int &col);
 
-/* assign values to all the zero (not assigned) values for Sudoku solution
- */
+// assign values to all the zero (not assigned) values for Sudoku solution
 bool solveSudoku(int grid[N][N]) {
     int row, col;
     if (!isEmptyLocation(grid, row, col))
        return true;
-    for (int num = 1; num <= 9; num++)
-    {
-        if (isGridSafe(grid, row, col, num))
-        {
+    for (int num = 1; num <= 9; num++) {
+        if (isGridSafe(grid, row, col, num)) {
             grid[row][col] = num;
             if (solveSudoku(grid))
                 return true;
@@ -27,6 +27,7 @@ bool solveSudoku(int grid[N][N]) {
     }
     return false;
 }
+
 /* Check for entries that don't have a value. */
 bool isEmptyLocation(int grid[N][N], int &row, int &col) {
     for (row = 0; row < N; row++) {
@@ -71,7 +72,7 @@ bool isGridSafe(int grid[N][N], int prow, int pcol, int number) {
     return !usedInRow(grid, prow, number) && !usedInCol(grid, pcol, number) &&
            !usedInBox(grid, prow - prow % 3 , pcol - pcol % 3, number);
 }
-/* print result  */
+
 void printResult(int finalgrid[N][N]) {
     for (int row = 0; row < N; row++) {
         for (int col = 0; col < N; col++) {
@@ -80,7 +81,7 @@ void printResult(int finalgrid[N][N]) {
         std::cout << std::endl;
     }
 }
-/* Main */
+
 int main() {
     int grid[N][N] = {{0, 0, 0, 0, 0, 0, 0, 0, 0},
                       {0, 0, 0, 0, 0, 3, 0, 8, 5},

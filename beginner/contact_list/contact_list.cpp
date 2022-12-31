@@ -1,56 +1,45 @@
-// Importing input output operations file
+/*********************************************************************
+* Contact List System                                                *
+*********************************************************************/
 #include <iostream>
-// Importing file class
 #include <fstream>
-// Importing standard library file
 #include <stdlib.h>
-// Importing string library file
 #include <string>
 
-std::string fname, lname, phone_num;
+std::string firstName, lastName, phoneNum;
 
-// Methods
-void addContact();
-void searchContact();
-void help();
-void self_exit();
-bool check_digits(std::string);
-bool check_numbers(std::string);
+bool checkDigits(std::string);
+bool checkNumbers(std::string);
 
-// Method 1
-// Helper method
-void self_exit() {
+void exit() {
 	system("cls");
 	std::cout << "\n\n\n\t\tThank You for using Contact-Saver!\n";
 	exit(1);
 }
 
-// Method 2
-// Helper method
 void help() {
+	system("cls");
 	std::cout << "Help Center";
 	std::cout << std::endl << std::endl;
 	system("PAUSE");
 	system("cls");
 }
 
-// Method 3
-// Helper method
 void addContact() {
 	std::ofstream phone("number.txt", std::ios::app);
 	system("cls");
 	std::cout << "\n\n\tEnter First Name : ";
-	std::cin >> fname;
+	std::cin >> firstName;
 	std::cout << "\n\tEnter Last Name : ";
-	std::cin >> lname;
+	std::cin >> lastName;
 	std::cout << "\n\tEnter Phone Number : ";
-	std::cin >> phone_num;
+	std::cin >> phoneNum;
 
-	if (check_digits(phone_num) == true) {
-		if (check_numbers(phone_num) == true) {
+	if (checkDigits(phoneNum) == true) {
+		if (checkNumbers(phoneNum) == true) {
 			if (phone.is_open()) {
-				phone << fname << " " << lname << " "
-					<< phone_num << std::endl;
+				phone << firstName << " " << lastName << " "
+					<< phoneNum << std::endl;
 				std::cout << "\n\tContact saved successfully !";
 			}
 			else {
@@ -70,45 +59,38 @@ void addContact() {
 	phone.close();
 }
 
-// Method 4
-// Helper method
 void searchContact() {
 	bool found = false;
 	std::ifstream myfile("number.txt");
 	std::string keyword;
 	std::cout << "\n\tEnter Name to search : ";
 	std::cin >> keyword;
-	while (myfile >> fname >> lname >> phone_num) {
-		if (keyword == fname || keyword == lname) {
+	while (myfile >> firstName >> lastName >> phoneNum) {
+		if (keyword == firstName || keyword == lastName) {
 			system("cls");
 			std::cout << "\n\n\n\t\tCONTACT DETAILS";
-			std::cout << "\n\nFirst Name : " << fname;
-			std::cout << "\nLast Name : " << lname;
-			std::cout << "\nPhone Number : " << phone_num;
+			std::cout << "\n\nFirst Name : " << firstName;
+			std::cout << "\nLast Name : " << lastName;
+			std::cout << "\nPhone Number : " << phoneNum;
 			found = true;
 			break;
 		}
 	}
 	if (found == false)
 		std::cout << "\nNo such contact is found!";
-
 	std::cout << std::endl << std::endl;
 	system("PAUSE");
 	system("cls");
 }
 
-// Method 5
-// Helper method
-bool check_digits(std::string x) {
+bool checkDigits(std::string x) {
 	if (x.length() == 10)
 		return true;
 	else
 		return false;
 }
 
-// Method 6
-// Helper method
-bool check_numbers(std::string x) {
+bool checkNumbers(std::string x) {
 	bool check = true;
 
 	for (int i = 0; i < x.length(); i++) {
@@ -117,24 +99,21 @@ bool check_numbers(std::string x) {
 			break;
 		}
 	}
-
 	std::cout << std::endl << std::endl;
 	system("PAUSE");
 	system("cls");
-
 	return check;
 }
 
-// Method 7
 void showContacts() {
 	system("cls");
 	int count = 0;
 	std::ifstream myfile("number.txt");
-	while (myfile >> fname >> lname >> phone_num) {
+	while (myfile >> firstName >> lastName >> phoneNum) {
 		std::cout << "\n\n\n\t\tCONTACT DETAILS";
-		std::cout << "\n\nFirst Name : " << fname;
-		std::cout << "\nLast Name : " << lname;
-		std::cout << "\nPhone Number : " << phone_num;
+		std::cout << "\n\nFirst Name : " << firstName;
+		std::cout << "\nLast Name : " << lastName;
+		std::cout << "\nPhone Number : " << phoneNum;
 		count++;
 	}
 	if (count == 0)
@@ -145,8 +124,6 @@ void showContacts() {
 	system("cls");
 }
 
-// Method 8
-// Main driver method
 int main() {
 	int choice;
 	system("cls");
@@ -157,26 +134,21 @@ int main() {
 				"Contact\n\t3. Show All Contacts \n\t4. Help\n\t5. Exit\n\t> ";
 		std::cin >> choice;
 
-		// Switch case
 		switch (choice) {
 		case 1:
 			addContact();
 			break;
-
 		case 2:
 			searchContact();
 			break;
-		
 		case 3:
 			showContacts();
 			break;
-
 		case 4:
 			help();
 			break;
-
 		case 5:
-			self_exit();
+			exit();
 			break;
 
 		default:

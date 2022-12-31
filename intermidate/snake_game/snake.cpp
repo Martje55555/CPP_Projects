@@ -19,33 +19,32 @@ short int grid[ROWS][COLLUMNS] = {};
 queue<pair<short int, short int>> snakeBody;
 short int snakeX = 15;
 short int snakeY = 15;
-short int direction = 2; // Up: 1, Down: -1, Right: 2, Left: 0
+short int direction = 2;
 
 bool gameOver = false;
 int points = 0;
 
-// Prototypes
-void displayGrid(); // Outputs the grid's current state
-void moveSnake(); // Moves the snake based on variables
-void getKeyPress(); // Gets the key pressed [YIELDS]
-void handleInput(); // Handles snake movement
-void mainMenu(); // Main menu
+void displayGrid();  // Outputs the grid's current state
+void moveSnake();    // Moves the snake based on variables
+void getKeyPress();  // Gets the key pressed [YIELDS]
+void handleInput();  // Handles snake movement
+void mainMenu();     // Main menu
 void generateFood(); // Generates one food randomly on the grid
-void gameEnd(); // Show end screen
+void gameEnd();      // Show end screen
 
 int main() {
-  struct termios old_tio, new_tio;
+  struct termios oldT, newT;
 
-  // These functions let you detect keypresses without having to press enter 
-  tcgetattr(STDIN_FILENO,&old_tio);
-  new_tio=old_tio;
-  new_tio.c_lflag &=(~ICANON & ~ECHO);
-  tcsetattr(STDIN_FILENO,TCSANOW,&new_tio);
+  // These functions let you detect keypresses without having to press enter
+  tcgetattr(STDIN_FILENO, &oldT);
+  newT = oldT;
+  newT.c_lflag &= (~ICANON & ~ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &newT);
 
   mainMenu();
 
   // Set up default snake length
-  for (int i=0; i<1; i++) {
+  for (int i = 0; i < 1; i++) {
     snakeX++;
     snakeBody.emplace(snakeX, snakeY);
     grid[snakeY][snakeX] = 1;
@@ -70,7 +69,7 @@ void mainMenu() {
   cout << "==============================================\n";
   cout << "==============================================\n";
   char c = 'x';
-  while (c!='p') {
+  while (c != 'p') {
     c = getchar();
   }
 }
@@ -81,16 +80,15 @@ void gameEnd() {
   cout << "==============================================\n";
   cout << "================= GAME OVER ==================\n";
   cout << "==============================================\n";
-  cout << "==============================================\n"; 
-  cout << "  You ended up with " << points << " point(s) \n"; 
+  cout << "==============================================\n";
+  cout << "  You ended up with " << points << " point(s) \n";
 }
 
 void generateFood() {
   int randX = rand() % COLLUMNS + 1;
-  int randY = rand() % ROWS + 1; 
-  if (grid[randY][randX] == 1) {
+  int randY = rand() % ROWS + 1;
+  if (grid[randY][randX] == 1)
     return generateFood();
-  }
   grid[randY][randX] = -1;
 }
 
@@ -98,31 +96,29 @@ void displayGrid() {
   cout << "\033[2J"; // Clears the terminal
   cout << "Points: " << points << "\n";
 
-  for (int y=0; y<30; y++) {
-    for (int x=0; x<30; x++) {
+  for (int y = 0; y < 30; y++) {
+    for (int x = 0; x < 30; x++) {
       int state = grid[y][x];
-      if (state == 0) {
+      if (state == 0)
         cout << "[ ]";
-      } else if (state == 1) {
+      else if (state == 1)
         cout << " * ";
-      } else if (state == -1) {
+      else if (state == -1)
         cout << " @ ";
-      }
     }
     cout << "\n";
   }
 }
 
 void updatePosition() {
-  if (direction == 1) {
+  if (direction == 1)
     snakeY--;
-  } else if (direction == -1) {
+  else if (direction == -1)
     snakeY++;
-  } else if (direction == 2) {
+  else if (direction == 2)
     snakeX++;
-  } else if (direction == 0) {
+  else if (direction == 0)
     snakeX--;
-  }
 }
 
 void moveSnake() {
@@ -147,9 +143,10 @@ void moveSnake() {
     grid[snakeY][snakeX] = 1;
     points++;
     generateFood();
-  } else if (grid[snakeY][snakeX] == 1) {
+  }
+  else if (grid[snakeY][snakeX] == 1)
     gameOver = true;
-  } else {
+  else {
     snakeBody.emplace(snakeX, snakeY);
     grid[snakeY][snakeX] = 1;
   }
@@ -158,14 +155,13 @@ void moveSnake() {
 void handleInput() {
   while (true) {
     char c = getchar();
-    if (c == 'w') {
+    if (c == 'w')
       direction = 1;
-    } else if(c == 'a') {
+    else if (c == 'a')
       direction = 0;
-    } else if(c == 's') {
+    else if (c == 's')
       direction = -1;
-    } else if(c == 'd') {
+    else if (c == 'd')
       direction = 2;
-    } 
   }
 }

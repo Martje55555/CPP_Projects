@@ -1,7 +1,9 @@
+/*********************************************************************
+* Digital Clock                                                      *
+*********************************************************************/
 #include <iostream>
 #include <ctime>
 #include <windows.h>
-using namespace std;
 
 int main() {
     time_t t = time(NULL);
@@ -14,11 +16,11 @@ int main() {
 
 while (true) {
         system("cls");
-        cout << "The digital time is :";
+        std::cout << "The digital time is :";
 
-        cout << "      |" << hrs << " : " << minutes << " : " << seconds << " " << endl;
+        std::cout << "      |" << hrs << " : " << minutes << " : " << seconds << " " << std::endl;
         //increment sec min and hours
-        seconds++;
+        seconds++; 
         if (seconds >= 60) {
             seconds = 1;
             minutes++;

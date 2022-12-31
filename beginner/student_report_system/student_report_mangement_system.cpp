@@ -1,10 +1,11 @@
+/*********************************************************************
+* Student Report System                                              *
+*********************************************************************/
 #include<iostream>
 #include<fstream>
 #include<iomanip>
 #include<string>
-#include<math.h>
 
-// the class that stores data
 class Student {
     int id;
     char name[50];
@@ -13,14 +14,14 @@ class Student {
     char grade;
 
     public:
-        void getdata();
-        void showdata() const;
+        void getData();
+        void showData() const;
         void calculate();
-        int returnIdNum() const;
-}; //class ends here
+        int returnIdNumber() const;
+};
 
 void Student::calculate() {
-    average=(eng_marks+math_marks+sci_marks+lang2_marks+cs_marks)/5.0;
+    average = (eng_marks+math_marks+sci_marks+lang2_marks+cs_marks) / 5.0;
 
     if(average>=90)
         grade='A';
@@ -32,7 +33,7 @@ void Student::calculate() {
         grade='F';
 }
 
-void Student::getdata() {
+void Student::getData() {
     std::cout<<"\nEnter student's ID number: ";
     std::cin>>id;
 
@@ -58,7 +59,7 @@ void Student::getdata() {
     calculate();
 }
 
-void Student::showdata() const {
+void Student::showData() const {
     std::cout<<"\nRoll number of student : " << id;
     std::cout<<"\nName of student : " << name;
     std::cout<<"\nEnglish : " << eng_marks;
@@ -71,24 +72,21 @@ void Student::showdata() const {
     std::cout<<"\nGrade of student is : " << grade;
 }
 
-int  Student::returnIdNum() const {
+int  Student::returnIdNumber() const {
     return id;
 }
 
-//function declaration
-void create_student();
-void display_sp(int);//display particular record
-void display_all(); // display all records
-void delete_student(int);//delete particular record
-void change_student(int);//edit particular record
+void createStudent();
+void displayStudent(int);
+void displayAll();
+void deleteStudent(int);
+void updateStudent(int);
 
-//MAIN
 int main() {
     char ch;
     std::cout<<std::setprecision(2);
 
-    do
-    {
+    do {
         char ch;
         int num;
         system("cls");
@@ -102,48 +100,46 @@ int main() {
         std::cout<<"\n\nWhat is your Choice (1/2/3/4/5/6) ";
         std::cin>>ch;
         system("cls");
-        switch(ch)
-        {
+        switch(ch) {
             case '1':
-                create_student(); break;
+                createStudent(); break;
             case '2':
                 std::cout<<"\n\n\tEnter their ID number "; 
                 std::cin>>num;
-                display_sp(num);
+                displayStudent(num);
                 break;
             case '3':
-                display_all();
+                displayAll();
                 break;
             case '4':
                 std::cout<<"\n\n\tEnter their ID number: "; 
                 std::cin>>num;
-                delete_student(num);break;
+                deleteStudent(num);break;
             case '5':
                 std::cout<<"\n\n\tEnter their ID number ";
                 std::cin>>num;
-                change_student(num);break;
+                updateStudent(num);break;
             case '6':
-                std::cout<<"Exiting, Thank you!";
+                std::cout<<"Exiting, Thank you!\n";
                 exit(0);
         }
     } while(ch!='6');
     return 0;
 }
 
-//write student details to file
-void create_student() {
+void createStudent() {
     Student student;
     std::ofstream oFile;
     oFile.open("student.dat",std::ios::binary|std::ios::app);
-    student.getdata();
+    student.getData();
     oFile.write(reinterpret_cast<char *> (&student), sizeof(Student));
     oFile.close();
     std::cout<<"\n\nStudent record Has Been Created ";
     std::cin.ignore();
     std::cin.get();
 }
-// read file records
-void display_all() {
+
+void displayAll() {
     Student student;
     std::ifstream inFile;
     inFile.open("student.dat",std::ios::binary);
@@ -154,17 +150,16 @@ void display_all() {
         return;
     }
     std::cout<<"\n\n\n\t\tDISPLAYING ALL RECORDS\n\n";
-    while(inFile.read(reinterpret_cast<char *> (&student), sizeof(Student)))
-    {
-        student.showdata();
+    while(inFile.read(reinterpret_cast<char *> (&student), sizeof(Student))) {
+        student.showData();
         std::cout<<"\n\n====================================\n";
     }
     inFile.close();
     std::cin.ignore();
     std::cin.get();
 }
-//read specific record based on their ID number
-void display_sp(int n) {
+
+void displayStudent(int n) {
     Student student;
     std::ifstream iFile;
     iFile.open("student.dat",std::ios::binary);
@@ -178,8 +173,8 @@ void display_sp(int n) {
 
     bool flag=false;
     while(iFile.read(reinterpret_cast<char *> (&student), sizeof(Student))) {
-        if(student.returnIdNum()==n) {
-            student.showdata();
+        if(student.returnIdNumber()==n) {
+            student.showData();
             flag=true;
         }
     }
@@ -189,9 +184,9 @@ void display_sp(int n) {
     std::cin.ignore();
     std::cin.get();
 }
-// modify record for specified ID number
-void change_student(int n) {
-    bool found=false;
+
+void updateStudent(int n) {
+    bool found = false;
     Student student;
     std::fstream fl;
     fl.open("student.dat",std::ios::binary|std::ios::in|std::ios::out);
@@ -202,18 +197,17 @@ void change_student(int n) {
         return;
     }
     while(!fl.eof() && found==false) {
-    fl.read(reinterpret_cast<char *> (&student), sizeof(Student));
-    if(student.returnIdNum()==n)
-    {
-        student.showdata();
-        std::cout<<"\nEnter new student details:"<<std::endl;
-        student.getdata();
-        int pos=(-1)*static_cast<int>(sizeof(student));
-        fl.seekp(pos,std::ios::cur);
-        fl.write(reinterpret_cast<char *> (&student), sizeof(Student));
-        std::cout<<"\n\n\t Record Updated";
-        found=true;
-    }
+        fl.read(reinterpret_cast<char *> (&student), sizeof(Student));
+        if(student.returnIdNumber()==n) {
+            student.showData();
+            std::cout<<"\nEnter new student details:"<<std::endl;
+            student.getData();
+            int pos=(-1)*static_cast<int>(sizeof(student));
+            fl.seekp(pos,std::ios::cur);
+            fl.write(reinterpret_cast<char *> (&student), sizeof(Student));
+            std::cout<<"\n\n\t Record Updated";
+            found=true;
+        }
     }
     fl.close();
     if(found==false)
@@ -222,13 +216,11 @@ void change_student(int n) {
     std::cin.get();
 }
 
-//delete record with particular ID number
-void delete_student(int n) {
+void deleteStudent(int n) {
     Student student;
     std::ifstream iFile;
     iFile.open("student.dat",std::ios::binary);
-    if(!iFile)
-    {
+    if(!iFile) {
         std::cout<<"File could not be opened... Press any Key to exit...";
         std::cin.ignore();
         std::cin.get();
@@ -237,12 +229,9 @@ void delete_student(int n) {
     std::ofstream oFile;
     oFile.open("Temp.dat",std::ios::out);
     iFile.seekg(0,std::ios::beg);
-    while(iFile.read(reinterpret_cast<char *> (&student), sizeof(Student)))
-    {
-        if(student.returnIdNum()!=n)
-        {
+    while(iFile.read(reinterpret_cast<char *> (&student), sizeof(Student))) {
+        if(student.returnIdNumber()!=n)
             oFile.write(reinterpret_cast<char *> (&student), sizeof(Student));
-        }
     }
     oFile.close();
     iFile.close();

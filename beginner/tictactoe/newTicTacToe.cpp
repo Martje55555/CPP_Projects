@@ -27,7 +27,7 @@ int main()
    std::cout << "************ Tic-Tac-Toe ************\n";
    while (won != true) {
        is_move = false;
-       is_row = false;
+       is_row = false;  
        is_col = false;
 
        drawTTTBoard(board);

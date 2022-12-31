@@ -1,30 +1,25 @@
-// C++ program for Merge Sort
+/*********************************************************************
+* Merge Sort                                                         *
+*********************************************************************/
 #include <iostream>
 
 // Merges two subarrays of array[].
-// First subarray is arr[begin..mid]
-// Second subarray is arr[mid+1..end]
 void merge(int array[], int const left, int const mid, int const right) {
 	auto const subArrayOne = mid - left + 1;
 	auto const subArrayTwo = right - mid;
 
-	// Create temp arrays
 	auto *leftArray = new int[subArrayOne];
 	auto *rightArray = new int[subArrayTwo];
 
-	// Copy data to temp arrays leftArray[] and rightArray[]
-	for (auto i = 0; i < subArrayOne; i++) {
+	for (auto i = 0; i < subArrayOne; i++)
 		leftArray[i] = array[left + i];
-	}
-	for (auto j = 0; j < subArrayTwo; j++) {
+	for (auto j = 0; j < subArrayTwo; j++)
 		rightArray[j] = array[mid + 1 + j];
-	}
 
-	auto indexOfSubArrayOne = 0; // Initial index of first sub-array
-	auto indexOfSubArrayTwo = 0; // Initial index of second sub-array
-	int indexOfMergedArray = left; // Initial index of merged array
+	auto indexOfSubArrayOne = 0;
+	auto indexOfSubArrayTwo = 0;
+	int indexOfMergedArray = left;
 
-	// Merge the temp arrays back into array[left..right]
 	while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
 		if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
 			array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
@@ -36,15 +31,13 @@ void merge(int array[], int const left, int const mid, int const right) {
 		}
 		indexOfMergedArray++;
 	}
-	// Copy the remaining elements of
-	// left[], if there are any
+
 	while (indexOfSubArrayOne < subArrayOne) {
 		array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
 		indexOfSubArrayOne++;
 		indexOfMergedArray++;
 	}
-	// Copy the remaining elements of
-	// right[], if there are any
+
 	while (indexOfSubArrayTwo < subArrayTwo) {
 		array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
 		indexOfSubArrayTwo++;
@@ -54,11 +47,11 @@ void merge(int array[], int const left, int const mid, int const right) {
 	delete[] rightArray;
 }
 
-// begin is for left index and end is
-// right index of the sub-array
-// of arr to be sorted */
+
 void mergeSort(int array[], int const begin, int const end) {
-	if (begin >= end) return; // Returns recursively
+	if (begin >= end)
+		return;
+
 	auto mid = begin + (end - begin) / 2;
 	mergeSort(array, begin, mid);
 	mergeSort(array, mid + 1, end);

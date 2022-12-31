@@ -1,7 +1,7 @@
 /*********************************************************************
 * Book Management                                                    *
 *********************************************************************/
-// fix error where if book name has a space, it takes the next characters as the author.
+
 #include <fstream>
 #include <iostream>
 #include <string>
